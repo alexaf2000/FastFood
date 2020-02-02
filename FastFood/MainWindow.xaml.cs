@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using IniParser;
+using IniParser.Model;
+
 namespace FastFood
 {
     /// <summary>
@@ -23,6 +26,10 @@ namespace FastFood
         public MainWindow()
         {
             InitializeComponent();
+            var parser = new FileIniDataParser();
+            IniData data = parser.ReadFile("config.ini");
+            string databaseUsername = data["Connection"]["database"];
+            Console.WriteLine(databaseUsername);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
