@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 using FastFood.user_interface;
 
 namespace FastFood
@@ -52,16 +53,25 @@ namespace FastFood
                 ruta = "Data Source="+ host + ";port=" + port + ";Database=" + database + ";Uid="+user+";Password="+pass;
                 con = new MySqlConnection(ruta);
                 con.Open();
-                query = "SELECT username from users where username= ?username and password=?password;";
+                query = "SELECT password from users where username= ?username;";
                 cmd = new MySqlCommand(query, con);
                 cmd.Parameters.AddWithValue("?username", username);
-                cmd.Parameters.AddWithValue("?password", password);
                 System.Data.IDataReader dr;
                 dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
-                    dashboard form = new dashboard();
-                    form.ShowDialog();
+                    String user_hash = dr.GetString(0);
+                    bool valid = BCrypt.Net.BCrypt.Verify(password, user_hash);
+                    Console.WriteLine("Valor: "+valid);
+                    if (valid) {
+                        dashboard form = new dashboard();
+                        form.ShowDialog();
+                    }
+                    else { 
+                    
+                    }
+
+                    
                 }
                 else
                 {
