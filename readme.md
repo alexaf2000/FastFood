@@ -13,7 +13,9 @@ FastFood was made trying to be a new style a point of sale (POS) or also know as
 
 One of those things that FastFood can do is manage the tables that are inside your restaurant, change the state of the tables, start some orders, and select it's items.
 
-<img src="https://i.imgur.com/9nC31sp.png" width="256">
+## Screenshots
+
+<img src="https://i.imgur.com/Ahqhyv9.png" width="256">
 
 ## How to begin?
 
