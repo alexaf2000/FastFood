@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:FastFood" mc:Ignorable="d" WindowStartupLocation="CenterScreen" Title="Inicio de sesión" Height="550" Width="400" ResizeMode="CanMinimize">
     <Grid>
         <Label Content="Inicio de sesión" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
-        <Rectangle Fill="#FF57DA57" HorizontalAlignment="Left" Height="27" Margin="0,19.5,0,0" VerticalAlignment="Top" Width="7"/>
+        <Rectangle Fill="#FF53C753" HorizontalAlignment="Left" Height="27" Margin="0,19.5,0,0" VerticalAlignment="Top" Width="7"/>
         <TextBox x:Name="usernameInput" Height="26" Margin="102,273,102,0" KeyUp="Login_EnterKey" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FFA7DEC0" FontSize="14" />
         <Label Content="Nombre de usuario" HorizontalAlignment="Left" Margin="102,244,0,0" VerticalAlignment="Top" FontStyle="Italic" Width="128" Padding="0,5,5,5" FontSize="14"/>
         <PasswordBox x:Name="passwordInput" Height="26" Margin="102,339,102,0" KeyUp="Login_EnterKey" VerticalAlignment="Top" Background="#FFA7DEC0" FontSize="14"/>
@@ -19,7 +19,7 @@
                 </RadialGradientBrush>
             </Image.OpacityMask>
         </Image>
-        <Button Content="Iniciar sesión" Margin="117,409,117,0" VerticalAlignment="Top" Click="Login_ButtonClick" Background="#FF57DA57" Foreground="White" BorderBrush="#FF57DA57" Height="40" FontWeight="Bold" FontSize="12.5">
+        <Button Content="Iniciar sesión" Margin="117,409,117,0" VerticalAlignment="Top" Click="Login_ButtonClick" Background="#FF53C753" Foreground="White" BorderBrush="#FF53C753" Height="40" FontWeight="Bold" FontSize="12.5">
             <Button.BitmapEffect>
                 <DropShadowBitmapEffect Color="Black" Direction="0" Softness="1" ShadowDepth="0" Opacity="0.2" />
             </Button.BitmapEffect>
