@@ -64,16 +64,19 @@ namespace FastFood {
                 if (dr.Read ()) {
                     String user_hash = dr.GetString (0);
                     bool valid = BCrypt.Net.BCrypt.Verify (password, user_hash);
-                    if (valid) {
+                    if (valid) { // Si se ha autenticado correctamente:
                         dashboard form = new dashboard ();
                         form.ShowDialog ();
                     } else {
-
+                        MessageBox.Show("Contraseña incorrecta.","Fallo de autenticación",MessageBoxButton.OK,MessageBoxImage.Error);
                     }
 
-                } else { }
+                } else {
+                    MessageBox.Show("Usuario incorrecto.", "Fallo de autenticación", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             } catch (Exception exc) {
-                Console.WriteLine (exc.Message.ToString ());
+                MessageBox.Show("Ups! Ha habido un error de conexión con la base de datos:\n"+ exc.Message.ToString(),"Error de conexión",MessageBoxButton.OK,MessageBoxImage.Exclamation);
+                
             } finally {
                 if (con != null) {
                     con.Close ();
