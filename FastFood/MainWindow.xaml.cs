@@ -66,6 +66,7 @@ namespace FastFood {
                     bool valid = BCrypt.Net.BCrypt.Verify (password, user_hash);
                     if (valid) { // Si se ha autenticado correctamente:
                         dashboard form = new dashboard ();
+                        this.Hide();
                         form.ShowDialog ();
                     } else {
                         MessageBox.Show("Contraseña incorrecta.","Fallo de autenticación",MessageBoxButton.OK,MessageBoxImage.Error);

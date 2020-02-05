@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FastFood.user_interface"
         mc:Ignorable="d"
-        Title="dashboard" Height="450" Width="800">
+        Closing="Dashboard_Closing"
+        Title="FastFood - Dashboard" MinHeight="450" MinWidth="600"  Height="450" Width="600">
     <Grid>
         
     </Grid>

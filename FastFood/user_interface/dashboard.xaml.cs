@@ -23,5 +23,21 @@ namespace FastFood.user_interface
         {
             InitializeComponent();
         }
+
+
+        private void Dashboard_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+           
+            MessageBoxResult reply = MessageBox.Show("Se va a cerrar FastFood.\n¿Estás seguro de que deseas salir?", "Cerrando FastFood", MessageBoxButton.YesNo,MessageBoxImage.Warning);
+            if (reply == MessageBoxResult.Yes)
+            {
+                App.Current.MainWindow.Close();
+            }
+            else{
+                e.Cancel = true;
+            }
+        }
+
+
     }
 }
