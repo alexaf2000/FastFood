@@ -6,8 +6,33 @@
         xmlns:local="clr-namespace:FastFood.user_interface"
         mc:Ignorable="d"
         Closing="Dashboard_Closing"
-        Title="FastFood - Dashboard" MinHeight="450" MinWidth="600"  Height="450" Width="600">
-    <Grid>
-        
-    </Grid>
+        Title="FastFood - Dashboard" MinHeight="450" MinWidth="600"  Height="720" Width="1280">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Border Background="White">
+                <Grid Margin="15,0">
+                    <Image Source="/FastFood;component/Resources/logo.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,5" Height="36" />
+                    <TextBlock FontFamily="/FastFood;component/Resources/#Contrail One" FontSize="34" Text="FastFood" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="38,0,0,0"></TextBlock>
+
+                </Grid>
+                <Border.BitmapEffect>
+                    <DropShadowBitmapEffect Color="Black" Direction="0" Softness="1" ShadowDepth="0" Opacity="0.8" />
+                </Border.BitmapEffect>
+            </Border>
+
+            <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <Grid Height="3024">
+                    <Label FontSize="28px" FontWeight="Bold">This is just a demo.</Label>
+                    <Label Margin="0,45,0,0">Yes, that's true!</Label>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+
+    </ScrollViewer>
+    
 </Window>
