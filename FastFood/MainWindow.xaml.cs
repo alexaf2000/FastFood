@@ -85,5 +85,11 @@ namespace FastFood {
             }
 
         }
+
+        private void Connection_Settings(object sender, RoutedEventArgs e)
+        {
+            connection_settings form = new connection_settings();
+            form.ShowDialog();
+        }
     }
 }
