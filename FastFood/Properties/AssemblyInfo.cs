@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyTitle("FastFood")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Alex AF")]
 [assembly: AssemblyProduct("FastFood")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
