@@ -3,20 +3,57 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:local="clr-namespace:FastFood.user_interface" mc:Ignorable="d" Closing="Dashboard_Closing" Title="FastFood - Dashboard" MinHeight="450" MinWidth="600" Height="720" Width="1280">
+    xmlns:local="clr-namespace:FastFood.user_interface"
+        xmlns:fa5="http://schemas.fontawesome.com/icons/" mc:Ignorable="d" Closing="Dashboard_Closing" Title="FastFood - Dashboard" MinHeight="450" MinWidth="600" Height="720" Width="1280" WindowState="Maximized">
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="60" x:Name="sidebar"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
 
-        <Border Background="#FF53C753" Grid.Column="0" Panel.ZIndex="1" HorizontalAlignment="Left">
-            <Grid Margin="0">
-                <TextBlock FontFamily="/FastFood;component/Resources/#Contrail One" FontSize="34" Text="FastFood" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="38,0,0,0"></TextBlock>
-        
+        <Border Background="#FF53C753" Grid.Column="0" Panel.ZIndex="1">
+            <Grid>
+                <StackPanel VerticalAlignment="Top">
+                    <Button Height="60" Background="Transparent" x:Name="btnHome" Click="btnHome_Click" BorderThickness="0">
+                        <DockPanel Margin="20,0,0,0">
+                            <Image Source="/Resources/icons/menu-ui.ico" Width="20" />
+                            <Label  FontWeight="DemiBold" FontSize="13" x:Name="lbl_Governance" Foreground="White" Margin="15,0,0,0" />
+                        </DockPanel>
+                    </Button>
+                    <Button Height="60" Background="Transparent" x:Name="btnScan" BorderThickness="0">
+                        <DockPanel  Margin="20,0,0,0">
+                            <Image Source="/Resources/icons/cubiertos.ico" Width="20" />
+                            <Label Content="Mesas" Foreground="White" FontWeight="DemiBold" FontSize="13" Margin="15,0,0,0"/>
+                        </DockPanel>
+                    </Button>
+                    <Button Height="60" Background="Transparent" x:Name="btnMenu" BorderThickness="0">
+                        <DockPanel  Margin="20,0,0,0">
+                            <Image Source="/Resources/icons/menu.ico" Width="20" />
+                            <Label Content="Gestionar carta" Foreground="White" FontWeight="DemiBold" FontSize="13" Margin="15,0,0,0"/>
+                        </DockPanel>
+                    </Button>
+
+                </StackPanel>
+                <StackPanel VerticalAlignment="Bottom">
+                    <Button Height="60" Background="Transparent" x:Name="btnSettings" BorderThickness="0" >
+                        <DockPanel  Margin="20,0,0,0">
+                            <Image Source="/Resources/icons/g-settings.ico" Width="20" />
+                            <Label Content="Configuración" Foreground="White" FontWeight="SemiBold" FontSize="13" x:Name="lbl_Issues" Margin="15,0,0,0"/>
+                        </DockPanel>
+                    </Button>
+
+                    <Button Height="60" Background="Transparent" x:Name="btnExit" Click="btnExit_Click" BorderThickness="0">
+                        <DockPanel  Margin="20,0,0,0">
+                            <Image Source="/Resources/icons/log-out.ico" Width="20" />
+                            <Label Content="Cerrar sesión" Foreground="White" FontWeight="DemiBold" FontSize="14" x:Name="lbl_Migration" Margin="15,0,0,0" />
+                        </DockPanel>
+                    </Button>
+
+                </StackPanel>
             </Grid>
+            
         </Border>
 
 
