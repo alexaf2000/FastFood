@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,8 +23,6 @@ namespace FastFood {
     public partial class MainWindow : Window {
         public MainWindow () {
             InitializeComponent ();
-            ConfigurationHandler Config = new ConfigurationHandler ();
-            Console.WriteLine ("Dato: " + Config.getSetting ("database", "Connection"));
         }
 
         private void Login_ButtonClick (object sender, RoutedEventArgs e) {
@@ -65,19 +64,52 @@ namespace FastFood {
                     String user_hash = dr.GetString (0);
                     bool valid = BCrypt.Net.BCrypt.Verify (password, user_hash);
                     if (valid) { // Si se ha autenticado correctamente:
+
+                        //Generar token
+                        String Token = BCrypt.Net.BCrypt.HashPassword (username + new Random ().Next () + DateTime.Now.ToString ("dd-MM-yyyy HH:mm:ss") + new Random ().Next ());
+                        //Lo enviamos a la base de datos
+                        try {
+                            MySqlConnection co = new MySqlConnection (ruta);
+                            co.Open ();
+                            query = "UPDATE users SET token = ?token where username= ?username;";
+                            MySqlCommand command = new MySqlCommand (query, co);
+                            command.Parameters.AddWithValue ("?token", Token);
+                            command.Parameters.AddWithValue ("?username", username);
+                            System.Data.IDataReader test = command.ExecuteReader ();
+                            if (test.Read ()) {
+                                MessageBox.Show ("Error al guardar token.");
+                            }
+                        } finally {
+                            if (con != null) {
+                                con.Close ();
+                            }
+                        }
+                        //Guardar token de manera local
+                        // Muestra el token ConfigurationManager.AppSettings["token"];
+                        var configFile = ConfigurationManager.OpenExeConfiguration (ConfigurationUserLevel.None);
+                        var settings = configFile.AppSettings.Settings;
+                        settings.Remove ("token");
+                        settings.Remove ("username");
+                        settings.Add ("token", Token);
+                        settings.Add ("username", username);
+                        configFile.Save (ConfigurationSaveMode.Modified);
+                        ConfigurationManager.RefreshSection (configFile.AppSettings.SectionInformation.Name);
+
+                        //Finaliza el guardado del token
+
                         dashboard form = new dashboard ();
-                        this.Hide();
+                        this.Hide ();
                         form.ShowDialog ();
                     } else {
-                        MessageBox.Show("Contraseña incorrecta.","Fallo de autenticación",MessageBoxButton.OK,MessageBoxImage.Error);
+                        MessageBox.Show ("Contraseña incorrecta.", "Fallo de autenticación", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 
                 } else {
-                    MessageBox.Show("Usuario incorrecto.", "Fallo de autenticación", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show ("Usuario incorrecto.", "Fallo de autenticación", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             } catch (Exception exc) {
-                MessageBox.Show("Ups! Ha habido un error de conexión con la base de datos:\n"+ exc.Message.ToString(),"Error de conexión",MessageBoxButton.OK,MessageBoxImage.Exclamation);
-                
+                MessageBox.Show ("Ups! Ha habido un error de conexión con la base de datos:\n" + exc.Message.ToString (), "Error de conexión", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+
             } finally {
                 if (con != null) {
                     con.Close ();
@@ -86,10 +118,57 @@ namespace FastFood {
 
         }
 
-        private void Connection_Settings(object sender, RoutedEventArgs e)
-        {
-            connection_settings form = new connection_settings();
-            form.ShowDialog();
+        private void Connection_Settings (object sender, RoutedEventArgs e) {
+            connection_settings form = new connection_settings ();
+            form.ShowDialog ();
         }
+
+        private void Window_Loaded (object sender, RoutedEventArgs e) {
+            if (ConfigurationManager.AppSettings["token"] != null) // Si tenemos guardado un token de inicio de sesion
+            {
+                ConfigurationHandler Config = new ConfigurationHandler ();
+                String host = Config.getSetting ("host", "Connection");
+                String port = Config.getSetting ("port", "Connection");
+                String database = Config.getSetting ("database", "Connection");
+                String user = Config.getSetting ("username", "Connection");
+                String pass = Config.getSetting ("password", "Connection");
+                String ruta = "Data Source=" + host + ";port=" + port + ";Database=" + database + ";Uid=" + user + ";Password=" + pass;
+                String query = "SELECT token from users where username= ?username;";
+                MySqlCommand cmd;
+                MySqlConnection con = null;
+
+                try {
+                    con = new MySqlConnection (ruta);
+                    con.Open ();
+                    cmd = new MySqlCommand (query, con);
+                    cmd.Parameters.AddWithValue ("?username", ConfigurationManager.AppSettings["username"]);
+                    System.Data.IDataReader dr;
+                    dr = cmd.ExecuteReader ();
+                    if (dr.Read ()) {
+                        String token = dr.GetString (0);
+                        if (token == ConfigurationManager.AppSettings["token"]) {
+                            dashboard form = new dashboard ();
+                            this.Hide ();
+                            form.ShowDialog ();
+                        } else {
+                            var configFile = ConfigurationManager.OpenExeConfiguration (ConfigurationUserLevel.None);
+                            var settings = configFile.AppSettings.Settings;
+                            settings.Remove ("token");
+                            configFile.Save (ConfigurationSaveMode.Modified);
+                            ConfigurationManager.RefreshSection (configFile.AppSettings.SectionInformation.Name);
+                        }
+                    }
+                } catch (Exception exc) {
+                    MessageBox.Show ("Ups! Ha habido un error de conexión con la base de datos:\n" + exc.Message.ToString (), "Error de conexión", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+
+                } finally {
+                    if (con != null) {
+                        con.Close ();
+                    }
+                }
+
+            }
+        }
+
     }
 }
