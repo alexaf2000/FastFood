@@ -37,7 +37,7 @@
 
                 </StackPanel>
                 <StackPanel VerticalAlignment="Bottom">
-                    <Button Height="60" Background="Transparent" x:Name="btnSettings" BorderThickness="0" >
+                    <Button Height="60" Background="Transparent" x:Name="btnSettings" BorderThickness="0" Click="btnSettings_Click" >
                         <DockPanel  Margin="20,0,0,0">
                             <Image Source="/Resources/icons/g-settings.ico" Width="20" />
                             <Label Content="Configuración" Foreground="White" FontWeight="SemiBold" FontSize="13" x:Name="lbl_Issues" Margin="15,0,0,0"/>

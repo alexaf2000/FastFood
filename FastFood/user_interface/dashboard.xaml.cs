@@ -90,5 +90,11 @@ namespace FastFood.user_interface
             App.Current.MainWindow.Show();
             this.Close();
         }
+
+        private void btnSettings_Click(object sender, RoutedEventArgs e)
+        {
+            settings form = new settings();
+            form.ShowDialog();
+        }
     }
 }
