@@ -14,7 +14,26 @@
                     <TextBox  x:Name="restaurant" Margin="10,31,0,0" HorizontalAlignment="Left" Width="120" Height="24" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Usuarios" />
+            <TabItem Header="Usuarios" Name="users" GotFocus="users_GotFocus" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30*"/>
+                        <ColumnDefinition Width="100*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="0" Padding="10">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" FontSize="18">Gestión de usuarios</TextBlock>
+                            <TextBlock TextWrapping="Wrap" Margin="7">Realice la configuración de los usuarios que tienen acceso a la aplicación.</TextBlock>
+                            <Button>Crear usuario</Button>
+                            <Button IsEnabled="False">Modificar usuario</Button>
+                            <Button IsEnabled="False">Eliminar usuario</Button>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Column="1" Padding="20">
+                        <DataGrid/>
+                    </Border>
+                </Grid>
+            </TabItem>
             <TabItem Header="Acerca de...">
                 <Grid>
                     <Grid.RowDefinitions>

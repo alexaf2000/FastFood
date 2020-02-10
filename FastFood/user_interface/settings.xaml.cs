@@ -35,5 +35,10 @@ namespace FastFood.user_interface
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
         }
+
+        private void users_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Aqui");
+        }
     }
 }
