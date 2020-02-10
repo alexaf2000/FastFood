@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -35,10 +37,48 @@ namespace FastFood.user_interface
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
         }
-
-        private void users_GotFocus(object sender, RoutedEventArgs e)
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Console.WriteLine("Aqui");
+            if (users.IsSelected)
+            {
+                MySqlConnection con = null;
+                try
+                {
+                    String query = "SELECT username as 'nombre de usuario',name as 'nombre',email as 'e-mail' from users";
+                    ConfigurationHandler Config = new ConfigurationHandler();
+                    String host = Config.getSetting("host", "Connection");
+                    String port = Config.getSetting("port", "Connection");
+                    String database = Config.getSetting("database", "Connection");
+                    String user = Config.getSetting("username", "Connection");
+                    String pass = Config.getSetting("password", "Connection");
+                    String ruta = "Data Source=" + host + ";port=" + port + ";Database=" + database + ";Uid=" + user + ";Password=" + pass;
+                    con = new MySqlConnection(ruta);
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, con);
+                    DataTable table = new DataTable();
+                    adapter.Fill(table);
+                    usersDatagrid.ItemsSource = table.DefaultView;
+                    usersDatagrid.AutoGenerateColumns = true;
+                    usersDatagrid.CanUserAddRows = false;
+                }
+                catch (Exception exc)
+                {
+                    Console.WriteLine(exc.Message.ToString());
+                }
+                finally
+                {
+                    if (con != null)
+                    {
+                        con.Close();
+                    }
+                }
+            }
         }
-    }
+               
+}
+
+
+
+
+
+     
 }

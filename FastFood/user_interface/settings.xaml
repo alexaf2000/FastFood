@@ -5,16 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FastFood.user_interface"
         mc:Ignorable="d"
-        Title="Configuración" Height="450" Width="800" MinHeight="450" MinWidth="550" WindowStartupLocation="CenterScreen">
+        Title="Configuración" Height="450" Width="800" MinHeight="450" MinWidth="550" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
-        <TabControl TabStripPlacement="Top" >
+        <TabControl TabStripPlacement="Top" SelectionChanged="TabControl_SelectionChanged">
             <TabItem Header="General">
                 <Grid>
                     <TextBlock FontWeight="Bold" Text="Nombre de restaurante" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
                     <TextBox  x:Name="restaurant" Margin="10,31,0,0" HorizontalAlignment="Left" Width="120" Height="24" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Usuarios" Name="users" GotFocus="users_GotFocus" >
+            <TabItem Header="Usuarios" Name="users" >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30*"/>
@@ -22,7 +22,7 @@
                     </Grid.ColumnDefinitions>
                     <Border VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="0" Padding="10">
                         <StackPanel>
-                            <TextBlock FontWeight="Bold" FontSize="18">Gestión de usuarios</TextBlock>
+                            <TextBlock TextWrapping="Wrap" FontWeight="Bold" FontSize="18">Gestión de usuarios</TextBlock>
                             <TextBlock TextWrapping="Wrap" Margin="7">Realice la configuración de los usuarios que tienen acceso a la aplicación.</TextBlock>
                             <Button>Crear usuario</Button>
                             <Button IsEnabled="False">Modificar usuario</Button>
@@ -30,7 +30,7 @@
                         </StackPanel>
                     </Border>
                     <Border Grid.Column="1" Padding="20">
-                        <DataGrid/>
+                        <DataGrid Name="usersDatagrid" IsReadOnly="True" SelectedIndex="0" ColumnWidth="100*"/>
                     </Border>
                 </Grid>
             </TabItem>
