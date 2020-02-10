@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,10 +20,11 @@ using MySql.Data.MySqlClient;
 namespace FastFood {
     /// <summary>
     /// Lógica de interacción para MainWindow.xaml
-    /// </summary>
+    /// </summary>s
     public partial class MainWindow : Window {
         public MainWindow () {
             InitializeComponent ();
+            ver.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
         private void Login_ButtonClick (object sender, RoutedEventArgs e) {

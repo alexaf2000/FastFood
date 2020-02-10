@@ -29,8 +29,6 @@
                 <Image Source="Resources/icons/settings.ico"/>
             </StackPanel>
         </Button>
-
-
-
+        <TextBlock Text="ver" Name="ver" HorizontalAlignment="Right"  VerticalAlignment="Bottom" FontSize="7" Padding="2" />
     </Grid>
 </Window>
