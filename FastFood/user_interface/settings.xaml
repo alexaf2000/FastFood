@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Configuración" Height="450" Width="800" MinHeight="450" MinWidth="550" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
-        <TabControl TabStripPlacement="Top" SelectionChanged="TabControl_SelectionChanged">
+        <TabControl x:Name="SettingsTabControl" TabStripPlacement="Top" SelectionChanged="TabControl_SelectionChanged">
             <TabItem Header="General">
                 <Grid>
                     <TextBlock FontWeight="Bold" Text="Nombre de restaurante" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
@@ -22,15 +22,29 @@
                     </Grid.ColumnDefinitions>
                     <Border VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="0" Padding="10">
                         <StackPanel>
-                            <TextBlock TextWrapping="Wrap" FontWeight="Bold" FontSize="18">Gestión de usuarios</TextBlock>
-                            <TextBlock TextWrapping="Wrap" Margin="7">Realice la configuración de los usuarios que tienen acceso a la aplicación.</TextBlock>
-                            <Button>Crear usuario</Button>
-                            <Button IsEnabled="False">Modificar usuario</Button>
-                            <Button IsEnabled="False">Eliminar usuario</Button>
+                            <TextBlock TextWrapping="Wrap" FontWeight="Bold" FontSize="18"><InlineUIContainer>
+                                    <Rectangle Fill="#FF53C753" HorizontalAlignment="Left" Height="13" Margin="2,0" VerticalAlignment="Bottom" Width="4"/>
+                                </InlineUIContainer><Run Text=" "/><Run Text="Usuarios"/></TextBlock>
+                            <TextBlock TextWrapping="Wrap" Margin="7"><Run Text="Realice la configuración de los usuarios que tienen acceso a la aplicación."/></TextBlock>
+                            <Button x:Name="userCreate"  Background="#FF53C753" Foreground="White" BorderBrush="#FF53C753" Click="userCreate_Click" Margin="0,5" Content="Crear usuario"/>
+                            <Button x:Name="userModify"  Background="#FF53C753" Foreground="White" BorderBrush="#FF53C753" Click="userModify_Click" IsEnabled="False" Margin="0,5" Content="Modificar usuario"/>
+                            <Button x:Name="userDelete"  Background="#FF53C753" Foreground="White" BorderBrush="#FF53C753" Click="userDelete_Click" IsEnabled="False" Margin="0,5" Content="Eliminar usuario"/>
+
                         </StackPanel>
                     </Border>
                     <Border Grid.Column="1" Padding="20">
-                        <DataGrid Name="usersDatagrid" IsReadOnly="True" SelectedIndex="0" ColumnWidth="100*"/>
+                        <DataGrid Name="usersDatagrid"  IsReadOnly="True" ColumnWidth="100*" CanUserAddRows="False" SelectionUnit="FullRow" SelectionMode="Single" SelectionChanged="usersDatagrid_SelectionChanged">
+                            <DataGrid.RowStyle>
+                                <Style TargetType="DataGridRow">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="Blue"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.RowStyle>
+                        </DataGrid>
                     </Border>
                 </Grid>
             </TabItem>
@@ -43,7 +57,7 @@
                     <TextBlock FontFamily="/FastFood;component/Resources/#Contrail One" FontSize="34" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Row="1"><Image Source="/FastFood;component/Resources/logo.png" Height="36"/>FastFood</TextBlock>
                     <TextBlock x:Name="copyright" Grid.Row="1" FontSize="12"  FontWeight="SemiBold" VerticalAlignment="Top" HorizontalAlignment="Center" Height="22" Margin="0,40,0,0" Text="Creative Commons License © "/>
                     <TextBlock Grid.Row="1" FontSize="14"  FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Center" Height="22" Margin="0,60,0,0">Developed by AlexAF2000 - <Hyperlink NavigateUri="https://github.com/alexaf2000" RequestNavigate="Hyperlink_RequestNavigate">GitHub</Hyperlink></TextBlock>
-                    <TextBlock x:Name="version" FontSize="10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Row="1" Margin="0,0,7,3">Version </TextBlock>
+                    <TextBlock x:Name="version" FontSize="10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Row="1" Margin="0,0,7,3">Version</TextBlock>
                     <Rectangle Fill="#FF53C753" Grid.Row="1" Height="20" Stroke="#FF53C753" Panel.ZIndex="-1" VerticalAlignment="Bottom"/>
                 </Grid>
             </TabItem>
