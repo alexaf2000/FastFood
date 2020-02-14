@@ -114,6 +114,9 @@
     <Compile Include="user_interface\settings_addUser.xaml.cs">
       <DependentUpon>settings_addUser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="user_interface\settings_modifyUser.xaml.cs">
+      <DependentUpon>settings_modifyUser.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -140,6 +143,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="user_interface\settings_addUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="user_interface\settings_modifyUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

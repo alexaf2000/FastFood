@@ -102,7 +102,7 @@ namespace FastFood.user_interface
 
         private void userModify_Click(object sender, RoutedEventArgs e)
         {
-
+            new settings_modifyUser(this.usersDatagridSelected).ShowDialog();
         }
 
         private void userDelete_Click(object sender, RoutedEventArgs e)
