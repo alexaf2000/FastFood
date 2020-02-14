@@ -57,13 +57,13 @@ namespace FastFood.user_interface
                     }
                     else
                     {
-                        MessageBox.Show("Usuario añadido correctamente.");
+                        MessageBox.Show("Usuario añadido correctamente.","Añadido correctamente",MessageBoxButton.OK,MessageBoxImage.Information);
                         this.Close();
                     }
                 }
                 catch (Exception exc)
                 {
-                    Console.WriteLine(exc.Message.ToString());
+                    MessageBox.Show("Hubo un error al añadir el usuario: \n"+ exc.Message.ToString()+".", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 finally
                 {
