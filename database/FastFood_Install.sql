@@ -83,8 +83,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `password`, `email`, `token`) VALUES
-(1, 'Administrador', 'admin', '$2a$11$WoBICGGe1NeSvEYiO5/K9eNsLLgdhcNe9ocWRAqWIxc5XUYikHubq', 'admin@fastfood.com', '$2a$11$HjW4b2KWqfhSysOYb8YhuOZ.O3BR5DlBKmt770G3dANSCbxpQrkgK'),
-(13, 'alexito', 'alexito', '$2a$11$EZVdGwaGFTO.xwJcsqSBj.4VDzpCsY9cG.kvR2c1D4dz4Sb6JnTPC', 'alexito', '$2a$11$yEhIWUNWRDhgQH08ALU3UOQfjoScXriFMLQELYJzRz6/aYXTSyjY2');
+(1, 'Administrador', 'admin', '$2a$11$WoBICGGe1NeSvEYiO5/K9eNsLLgdhcNe9ocWRAqWIxc5XUYikHubq', 'admin@fastfood.com', '$2a$11$HjW4b2KWqfhSysOYb8YhuOZ.O3BR5DlBKmt770G3dANSCbxpQrkgK');
 
 --
 -- Índices para tablas volcadas
@@ -145,7 +144,7 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
