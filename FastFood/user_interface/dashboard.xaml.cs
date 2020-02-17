@@ -96,5 +96,10 @@ namespace FastFood.user_interface
             settings form = new settings();
             form.ShowDialog();
         }
+
+        private void btnTables_Click(object sender, RoutedEventArgs e)
+        {
+            contentContainer.Content = new user_interface.pages.tables();
+        }
     }
 }

@@ -22,7 +22,7 @@
                             <Label  FontWeight="DemiBold" FontSize="13" x:Name="lbl_Governance" Foreground="White" Margin="15,0,0,0" />
                         </DockPanel>
                     </Button>
-                    <Button Height="60" Background="Transparent" x:Name="btnScan" BorderThickness="0">
+                    <Button Height="60" Click="btnTables_Click" Background="Transparent" x:Name="btnTables" BorderThickness="0">
                         <DockPanel  Margin="20,0,0,0">
                             <Image Source="/Resources/icons/cubiertos.ico" Width="20" />
                             <Label Content="Mesas" Foreground="White" FontWeight="DemiBold" FontSize="13" Margin="15,0,0,0"/>
@@ -62,7 +62,7 @@
                 <RowDefinition Height="60px" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Border Background="White">
+            <Border Background="White" Panel.ZIndex="100">
                 <Grid Margin="15,0">
                     <Image Source="/FastFood;component/Resources/logo.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,5" Height="36" />
                     <TextBlock FontFamily="/FastFood;component/Resources/#Contrail One" FontSize="34" Text="FastFood" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="38,0,0,0"></TextBlock>
@@ -82,12 +82,7 @@
             </Border>
 
 
-            <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                <Grid Height="3024">
-                    <Label FontSize="28px" FontWeight="Bold">This is just a demo.</Label>
-                    <Label Margin="0,45,0,0">Yes, that's true!</Label>
-                </Grid>
-            </ScrollViewer>
+            <ScrollViewer x:Name="contentContainer" Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"/>
         </Grid>
     </Grid>
    

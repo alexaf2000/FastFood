@@ -102,11 +102,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="user_interface\components\table_button.xaml.cs">
+      <DependentUpon>table_button.xaml</DependentUpon>
+    </Compile>
     <Compile Include="user_interface\connection_settings.xaml.cs">
       <DependentUpon>connection_settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="user_interface\dashboard.xaml.cs">
       <DependentUpon>dashboard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="user_interface\pages\tables.xaml.cs">
+      <DependentUpon>tables.xaml</DependentUpon>
     </Compile>
     <Compile Include="user_interface\settings.xaml.cs">
       <DependentUpon>settings.xaml</DependentUpon>
@@ -130,11 +136,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="user_interface\components\table_button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="user_interface\connection_settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="user_interface\dashboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="user_interface\pages\tables.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
