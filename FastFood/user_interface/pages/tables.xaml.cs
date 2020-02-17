@@ -88,21 +88,61 @@ namespace FastFood.user_interface.pages
         {
             var TableButton = (table_button) e.Source;
             var TableNumber = TableButton.GetValue(table_button.TableNumberProperty);
-            Console.WriteLine(TableNumber);
             SelectedTable = TableNumber.ToString();
         }
 
         private void serviceStart_Click(object sender, RoutedEventArgs e)
         {
-
+            Boolean alreadyWorking = false;
             int serviceID = -1;
-            Console.WriteLine((String)GetValue(SelectedTableProperty));
 
             String query;
             MySqlCommand cmd;
             MySqlConnection con = null;
 
+            //Comprobar si existe
+            try
+            {
 
+                ConfigurationHandler Config = new ConfigurationHandler();
+                String host = Config.getSetting("host", "Connection");
+                String port = Config.getSetting("port", "Connection");
+                String database = Config.getSetting("database", "Connection");
+                String user = Config.getSetting("username", "Connection");
+                String pass = Config.getSetting("password", "Connection");
+                String ruta = "Data Source=" + host + ";port=" + port + ";Database=" + database + ";Uid=" + user + ";Password=" + pass;
+                con = new MySqlConnection(ruta);
+                con.Open();
+                query = "SELECT `actualServiceID` FROM tables WHERE id = ?selectedTableID;";
+                cmd = new MySqlCommand(query, con);
+                cmd.Parameters.AddWithValue("?selectedTableID", SelectedTable.ToString());
+                System.Data.IDataReader dr;
+                dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    if(!dr.IsDBNull(0))
+                    {
+                        alreadyWorking = true;
+                    }
+
+
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Hubo un error al comrpobar la existencia de un pedido en esta mesa: \n" + exc.Message.ToString() + ".", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+            Console.WriteLine(alreadyWorking.ToString());
+
+            if (alreadyWorking == false) {
+                Console.WriteLine("Hola");
             //Crear servicio
             try
             {
@@ -186,7 +226,7 @@ namespace FastFood.user_interface.pages
                     }
                 }
             }
-
+            }
 
         }
 
@@ -194,7 +234,6 @@ namespace FastFood.user_interface.pages
         {
 
             Boolean setTime = false;
-            Console.WriteLine((String)GetValue(SelectedTableProperty));
 
             String query;
             MySqlCommand cmd;
