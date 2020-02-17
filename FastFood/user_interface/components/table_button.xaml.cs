@@ -23,53 +23,33 @@ namespace FastFood.user_interface.components
         public table_button()
         {
             InitializeComponent();
-            DataContext = this;
         }
 
-        
 
-        public static readonly DependencyProperty TableNumberProperty = DependencyProperty.Register("TableNumber",typeof(String),typeof(table_button));
+
+
+
+
         public String TableNumber
         {
-            
-            get
-            {
-  
-                return tableID.Text;
-            }
-            set
-            {
-     
-                tableID.Text = value;
-            }
-            
-    
-
-
+            get { return (String)GetValue(TableNumberProperty); }
+            set { SetValue(TableNumberProperty, value); }
         }
 
+        public static DependencyProperty TableNumberProperty =
+           DependencyProperty.Register("TableNumber", typeof(String), typeof(table_button));
 
-        public static readonly DependencyProperty serviceProperty = DependencyProperty.Register("service", typeof(String), typeof(table_button));
-
-
-        public String service
+        public bool Service
         {
-            get
-            {
-                return serviceON.IsVisible.ToString();
-            }
-            set
-            {
-                if (value != "false" || value != null)
-                {
-                    serviceON.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    serviceON.Visibility = Visibility.Hidden;
-                }
-            }
+            get { return (bool)GetValue(ServiceProperty); }
+            set { SetValue(ServiceProperty, value); }
         }
+
+        public static DependencyProperty ServiceProperty =
+           DependencyProperty.Register("Service", typeof(bool), typeof(table_button));
+
+
+
 
     }
 }

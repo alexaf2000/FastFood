@@ -23,10 +23,7 @@ namespace FastFood.user_interface.pages
         public tables()
         {
             InitializeComponent();
-            //List<String> Test = new List<String>();
-            var numberButtons = Enumerable.Range(1, 30)
-    .Select(r => new KeyValuePair<string, string>(r.ToString(), r.ToString()))
-    .ToList();
+            var numberButtons = Enumerable.Range(1, 30).Select(r => new KeyValuePair<string, bool>(r.ToString(), false)).ToList();
             numberButtonItems.ItemsSource = numberButtons;
         }
 

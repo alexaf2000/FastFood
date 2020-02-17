@@ -5,11 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FastFood.user_interface.components"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="400" >
+             d:DesignHeight="250" d:DesignWidth="400"
+             x:Name="TableButton" >
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="bool2vis"></BooleanToVisibilityConverter>
+    </UserControl.Resources>
     <Border  Background="#FF00AAC5" BorderBrush="#FFDA0101" BorderThickness="4" CornerRadius="5">
         <Grid>
-            <TextBlock x:Name="tableID" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="45">0</TextBlock>
-            <Border x:Name="serviceON"  Background="#FFF0CF00" Padding="20, 2" CornerRadius="10" Margin="0,15" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+            <TextBlock x:Name="tableID" Text="{Binding Path=TableNumber, ElementName=TableButton}"   Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="45"/>
+            <Border Visibility="{Binding Service, ElementName=TableButton, Converter={StaticResource bool2vis}}" x:Name="serviceON"  Background="#FFF0CF00" Padding="20, 2" CornerRadius="10" Margin="0,15" VerticalAlignment="Bottom" HorizontalAlignment="Center">
                 <TextBlock FontWeight="Medium"  Foreground="Black">En servicio</TextBlock>
             </Border>
         </Grid>

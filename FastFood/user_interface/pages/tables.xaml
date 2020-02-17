@@ -23,7 +23,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <!--Button Content="{Binding Value}"/-->
-                    <components:table_button TableNumber="5" service="false"  Padding="5" Margin="39,37,0,0" Loaded="table_button_Loaded" Grid.RowSpan="2" HorizontalAlignment="Left" Width="300" Height="200" VerticalAlignment="Top"/>
+                    <components:table_button TableNumber="{Binding Key}" Service="{Binding Value}"  Padding="5" Margin="39,37,0,0" Loaded="table_button_Loaded" Grid.RowSpan="2" HorizontalAlignment="Left" Width="300" Height="200" VerticalAlignment="Top"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
