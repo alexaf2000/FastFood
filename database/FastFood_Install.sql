@@ -63,6 +63,21 @@ CREATE TABLE `tables` (
   `actualServiceID` bigint(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `tables`
+--
+
+INSERT INTO `tables` (`id`, `description`, `actualServiceID`) VALUES
+(1, NULL, NULL),
+(2, NULL, NULL),
+(3, NULL, NULL),
+(4, NULL, NULL),
+(5, NULL, NULL),
+(6, NULL, NULL),
+(7, NULL, NULL),
+(8, NULL, NULL),
+(9, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
