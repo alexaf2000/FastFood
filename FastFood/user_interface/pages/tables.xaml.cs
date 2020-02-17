@@ -48,8 +48,13 @@ namespace FastFood.user_interface.pages
             InitializeComponent();
             //var numberButtons = Enumerable.Range(1, 30).Select(r => new KeyValuePair<string, bool>(r.ToString(), false)).ToList();
             //numberButtonItems.ItemsSource = numberButtons;
+            updateTables();
 
+           
+        }
 
+        private void updateTables()
+        {
             MySqlConnection con = null;
             try
             {
@@ -79,8 +84,6 @@ namespace FastFood.user_interface.pages
                 }
             }
         }
-
-
         private void table_button_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var TableButton = (table_button) e.Source;
