@@ -23,7 +23,15 @@ namespace FastFood.user_interface.pages
     /// </summary>
     public partial class tables : UserControl
     {
-        String selectedTable;
+        public String SelectedTable
+        {
+            get { return (String)GetValue(SelectedTableProperty); }
+            set { SetValue(SelectedTableProperty, value); }
+        }
+
+        public static DependencyProperty SelectedTableProperty =
+           DependencyProperty.Register("SelectedTable", typeof(String), typeof(tables));
+
 
         public tables()
         {
@@ -68,7 +76,7 @@ namespace FastFood.user_interface.pages
             var TableButton = (table_button) e.Source;
             var TableNumber = TableButton.GetValue(table_button.TableNumberProperty);
             Console.WriteLine(TableNumber);
-            this.selectedTable = TableNumber.ToString();
+            SelectedTable = TableNumber.ToString();
         }
     }
 }
