@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using FastFood.user_interface.components;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -22,6 +23,8 @@ namespace FastFood.user_interface.pages
     /// </summary>
     public partial class tables : UserControl
     {
+        String selectedTable;
+
         public tables()
         {
             InitializeComponent();
@@ -59,9 +62,13 @@ namespace FastFood.user_interface.pages
             }
         }
 
-        private void table_button_Loaded(object sender, RoutedEventArgs e)
-        {
 
+        private void table_button_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var TableButton = (table_button) e.Source;
+            var TableNumber = TableButton.GetValue(table_button.TableNumberProperty);
+            Console.WriteLine(TableNumber);
+            this.selectedTable = TableNumber.ToString();
         }
     }
 }
