@@ -189,5 +189,101 @@ namespace FastFood.user_interface.pages
 
 
         }
+
+        private void serviceFinish_Click(object sender, RoutedEventArgs e)
+        {
+
+            Boolean setTime = false;
+            Console.WriteLine((String)GetValue(SelectedTableProperty));
+
+            String query;
+            MySqlCommand cmd;
+            MySqlConnection con = null;
+
+
+            //Crear servicio
+            try
+            {
+
+                ConfigurationHandler Config = new ConfigurationHandler();
+                String host = Config.getSetting("host", "Connection");
+                String port = Config.getSetting("port", "Connection");
+                String database = Config.getSetting("database", "Connection");
+                String user = Config.getSetting("username", "Connection");
+                String pass = Config.getSetting("password", "Connection");
+                String ruta = "Data Source=" + host + ";port=" + port + ";Database=" + database + ";Uid=" + user + ";Password=" + pass;
+                con = new MySqlConnection(ruta);
+                con.Open();
+                query = "UPDATE `services` SET `end` = CURRENT_TIMESTAMP WHERE `services`.`id` = (SELECT actualServiceID FROM tables where id = 1)";
+                cmd = new MySqlCommand(query, con);
+
+                System.Data.IDataReader dr;
+                dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    // error
+                    MessageBox.Show("Error al cerrar el servicio.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    setTime = true;
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Hubo un error al crear el pedido: \n" + exc.Message.ToString() + ".", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+
+            //Asignar a mesa actual
+            if (setTime)
+            {
+                try
+                {
+
+                    ConfigurationHandler Config = new ConfigurationHandler();
+                    String host = Config.getSetting("host", "Connection");
+                    String port = Config.getSetting("port", "Connection");
+                    String database = Config.getSetting("database", "Connection");
+                    String user = Config.getSetting("username", "Connection");
+                    String pass = Config.getSetting("password", "Connection");
+                    String ruta = "Data Source=" + host + ";port=" + port + ";Database=" + database + ";Uid=" + user + ";Password=" + pass;
+                    con = new MySqlConnection(ruta);
+                    con.Open();
+                    query = "UPDATE `tables` SET `actualServiceID` = null WHERE `tables`.`id` = ?selectedTableID;";
+                    cmd = new MySqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("?selectedTableID", SelectedTable.ToString());
+                    System.Data.IDataReader dr;
+                    dr = cmd.ExecuteReader();
+                    if (dr.Read())
+                    {
+                        MessageBox.Show("Error al limpiar la mesa.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        //TODO OK
+                        //Recargar la vista
+                        updateTables();
+                    }
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show("Hubo un error al cerrar el pedido: \n" + exc.Message.ToString() + ".", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                finally
+                {
+                    if (con != null)
+                    {
+                        con.Close();
+                    }
+                }
+            }
+        }
     }
 }
