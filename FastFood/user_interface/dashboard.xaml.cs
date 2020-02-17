@@ -64,7 +64,7 @@ namespace FastFood.user_interface
             }
             Storyboard storyboard = new Storyboard();
 
-            Duration duration = new Duration(TimeSpan.FromMilliseconds(200));
+            Duration duration = new Duration(TimeSpan.FromMilliseconds(150));
             CubicEase ease = new CubicEase { EasingMode = EasingMode.EaseOut };
             DoubleAnimation animation = new DoubleAnimation();
             animation.EasingFunction = ease;

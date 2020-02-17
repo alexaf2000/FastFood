@@ -13,8 +13,8 @@
                 <TextBlock FontWeight="Medium"  Foreground="Black">En servicio</TextBlock>
             </Border>
         </Grid>
-        <Border.BitmapEffect>
+        <!--<Border.BitmapEffect>
             <DropShadowBitmapEffect Color="Black" Direction="-90" Softness="0.5" ShadowDepth="10" Opacity="0.4" />
-        </Border.BitmapEffect>
+        </Border.BitmapEffect>-->
     </Border>
 </UserControl>
