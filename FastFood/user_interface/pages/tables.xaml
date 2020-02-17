@@ -12,7 +12,7 @@
             <RowDefinition Height="59*"/>
             <RowDefinition Height="166*"/>
         </Grid.RowDefinitions>
-        <ItemsControl  x:Name="numberButtonItems">
+        <ItemsControl  x:Name="TablesList" ItemsSource="{Binding Path=LoadDataBinding}">
             <ItemsControl.ItemsPanel>
                 <!-- specify the panel that is the container for your items -->
                 <ItemsPanelTemplate>
@@ -23,12 +23,9 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <!--Button Content="{Binding Value}"/-->
-                    <components:table_button TableNumber="{Binding Key}" Service="{Binding Value}"  Padding="5" Margin="39,37,0,0" Loaded="table_button_Loaded" Grid.RowSpan="2" HorizontalAlignment="Left" Width="300" Height="200" VerticalAlignment="Top"/>
+                    <components:table_button TableNumber="{Binding id}" Service="{Binding actualServiceID}"  Padding="15" Margin="39,37,0,0" Loaded="table_button_Loaded" Grid.RowSpan="2" HorizontalAlignment="Left" Width="300" Height="200" VerticalAlignment="Top"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <Grid.BitmapEffect>
-            <DropShadowBitmapEffect Color="Black" Direction="0" Softness="1" ShadowDepth="0" Opacity="0.2" />
-        </Grid.BitmapEffect>
     </Grid>
 </UserControl>
