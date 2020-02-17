@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -21,17 +22,26 @@ namespace FastFood.user_interface.pages
     /// <summary>
     /// Lógica de interacción para home.xaml
     /// </summary>
-    public partial class tables : UserControl
+    public partial class tables : UserControl, INotifyPropertyChanged
     {
         public String SelectedTable
         {
             get { return (String)GetValue(SelectedTableProperty); }
-            set { SetValue(SelectedTableProperty, value); }
+            set { 
+                SetValue(SelectedTableProperty, value);
+                NotifyPropertyChanged("Title");
+            }
         }
 
         public static DependencyProperty SelectedTableProperty =
            DependencyProperty.Register("SelectedTable", typeof(String), typeof(tables));
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void NotifyPropertyChanged(string info)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+        }
 
         public tables()
         {

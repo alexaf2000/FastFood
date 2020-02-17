@@ -102,6 +102,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\EqualsConverter.cs" />
     <Compile Include="user_interface\components\table_button.xaml.cs">
       <DependentUpon>table_button.xaml</DependentUpon>
     </Compile>

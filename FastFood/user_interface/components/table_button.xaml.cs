@@ -26,10 +26,6 @@ namespace FastFood.user_interface.components
         }
 
 
-
-
-
-
         public String TableNumber
         {
             get { return (String)GetValue(TableNumberProperty); }
@@ -47,6 +43,8 @@ namespace FastFood.user_interface.components
 
         public static DependencyProperty ServiceProperty =
            DependencyProperty.Register("Service", typeof(bool), typeof(table_button));
+
+
 
 
 

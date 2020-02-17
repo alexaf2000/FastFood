@@ -5,14 +5,33 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FastFood.user_interface.pages"
              xmlns:components="clr-namespace:FastFood.user_interface.components"
+             xmlns:fastfood="clr-namespace:FastFood"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             x:Name="tablesTab">
+    <UserControl.Resources>
+        <fastfood:EqualsConverter x:Key="EqualsConverter" />
+    </UserControl.Resources>
     <Grid Background="White">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="59*"/>
-            <RowDefinition Height="166*"/>
-        </Grid.RowDefinitions>
-        <ItemsControl  x:Name="TablesList" ItemsSource="{Binding Path=LoadDataBinding}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" MaxWidth="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel VerticalAlignment="Bottom" Margin="15,75"  Background="White" Grid.Column="0" Height="500" >
+            <TextBlock FontSize="16" FontWeight="SemiBold">Total:</TextBlock>
+            <TextBlock Text="{Binding SelectedTable, ElementName=tablesTab}"/>
+            <TextBlock FontSize="24" FontWeight="Bold">129,99€</TextBlock>
+            <Button Content="Finalizar pedido" Padding="0,5" Margin="0,5"  Background="#cc0000" Foreground="White" BorderBrush="#cc0000" FontWeight="Bold" FontSize="12.5">
+                <Button.BitmapEffect>
+                    <DropShadowBitmapEffect Color="Black" Direction="0" Softness="0.5" ShadowDepth="0" Opacity="0.4" />
+                </Button.BitmapEffect>
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
+        <ItemsControl  x:Name="TablesList" Grid.Column="1" ItemsSource="{Binding Path=LoadDataBinding}">
             <ItemsControl.ItemsPanel>
                 <!-- specify the panel that is the container for your items -->
                 <ItemsPanelTemplate>
@@ -23,7 +42,29 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <!--Button Content="{Binding Value}"/-->
-                    <components:table_button TableNumber="{Binding id}" Service="{Binding actualServiceID}"  Padding="15" Margin="39,37,0,0" Loaded="table_button_Loaded" Grid.RowSpan="2" HorizontalAlignment="Left" Width="300" Height="200" VerticalAlignment="Top"/>
+                    <Border Padding="15" Margin="39,37,0,0" Grid.RowSpan="2" HorizontalAlignment="Left" Width="300" Height="200" VerticalAlignment="Top"  Background="#FF00AAC5" BorderBrush="#FFDA0101" CornerRadius="5">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="BorderThickness" Value="0"></Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Value="True">
+                                        <DataTrigger.Binding>
+                                            <MultiBinding Converter="{StaticResource EqualsConverter}" UpdateSourceTrigger="PropertyChanged">
+                                                <Binding Path="SelectedTable" ElementName="tablesTab"/>
+                                                <Binding Path="id"/>
+                                            </MultiBinding>
+                                        </DataTrigger.Binding>
+                                        
+                                        <Setter Property="BorderThickness" Value="4" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                                
+                            </Style>
+                            
+                        </Border.Style>
+                        <components:table_button TableNumber="{Binding id}" Service="{Binding actualServiceID}" PreviewMouseLeftButtonDown="table_button_PreviewMouseLeftButtonDown"/>
+                        
+                    </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
