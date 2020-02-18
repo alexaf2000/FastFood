@@ -36,6 +36,21 @@ namespace FastFood.user_interface.pages
         public static DependencyProperty SelectedTableProperty =
            DependencyProperty.Register("SelectedTable", typeof(String), typeof(tables));
 
+        public Boolean SelectedService
+        {
+            get {
+                NotifyPropertyChanged("Title");
+                return (Boolean)GetValue(SelectedServiceProperty); }
+            set
+            {
+                SetValue(SelectedServiceProperty, value);
+            }
+        }
+
+        public static DependencyProperty SelectedServiceProperty =
+           DependencyProperty.Register("SelectedService", typeof(Boolean), typeof(tables));
+
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void NotifyPropertyChanged(string info)
         {
@@ -87,8 +102,13 @@ namespace FastFood.user_interface.pages
         private void table_button_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var TableButton = (table_button) e.Source;
+
             var TableNumber = TableButton.GetValue(table_button.TableNumberProperty);
             SelectedTable = TableNumber.ToString();
+
+            var Service = TableButton.GetValue(table_button.ServiceProperty);
+            SelectedService = Boolean.Parse(Service.ToString());
+            
         }
 
         private void serviceStart_Click(object sender, RoutedEventArgs e)
@@ -142,7 +162,6 @@ namespace FastFood.user_interface.pages
             Console.WriteLine(alreadyWorking.ToString());
 
             if (alreadyWorking == false) {
-                Console.WriteLine("Hola");
             //Crear servicio
             try
             {

@@ -5,9 +5,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:local="clr-namespace:FastFood.user_interface.pages" 
     xmlns:components="clr-namespace:FastFood.user_interface.components" 
-    xmlns:fastfood="clr-namespace:FastFood" mc:Ignorable="d" x:Name="tablesTab">
+    xmlns:fastfood="clr-namespace:FastFood"
+             xmlns:converters="clr-namespace:FastFood.Converters" mc:Ignorable="d" x:Name="tablesTab">
     <UserControl.Resources>
-        <fastfood:EqualsConverter x:Key="EqualsConverter" />
+        <converters:EqualsConverter x:Key="EqualsConverter" />
+        <converters:NegateBooleanConverter x:Key="inverter"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </UserControl.Resources>
     <Grid Background="White">
         <Grid.ColumnDefinitions>
@@ -18,7 +21,7 @@
             <TextBlock FontSize="16" FontWeight="SemiBold">Total:</TextBlock>
             <TextBlock Text="{Binding SelectedTable, ElementName=tablesTab}"/>
             <TextBlock FontSize="24" FontWeight="Bold">129,99€</TextBlock>
-            <Button x:Name="serviceStart" Click="serviceStart_Click" Content="Iniciar pedido" Padding="0,5" Margin="0,5" Background="#66c433" Foreground="White" BorderBrush="#66c433" FontWeight="Bold" FontSize="12.5">
+            <Button x:Name="serviceStart" Click="serviceStart_Click" Content="Iniciar pedido" IsEnabled="{Binding SelectedService, ElementName=tablesTab, Converter= {StaticResource inverter}}" Padding="0,5" Margin="0,5" Background="#66c433" Foreground="White" BorderBrush="#66c433" FontWeight="Bold" FontSize="12.5">
                 <Button.BitmapEffect>
                     <DropShadowBitmapEffect Color="Black" Direction="0" Softness="0.5" ShadowDepth="0" Opacity="0.4" />
                 </Button.BitmapEffect>
@@ -28,7 +31,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button x:Name="productAdd" Content="Añadir producto" Padding="0,5" Margin="0,5" Background="#05aeff" Foreground="White" BorderBrush="#05aeff" FontWeight="Bold" FontSize="12.5">
+            <Button  x:Name="productAdd" Content="Añadir producto" Visibility="{Binding SelectedService, ElementName=tablesTab, Converter= {StaticResource BoolToVis}}"  Padding="0,5" Margin="0,5" Background="#05aeff" Foreground="White" BorderBrush="#05aeff" FontWeight="Bold" FontSize="12.5">
                 <Button.BitmapEffect>
                     <DropShadowBitmapEffect Color="Black" Direction="0" Softness="0.5" ShadowDepth="0" Opacity="0.4" />
                 </Button.BitmapEffect>
@@ -38,7 +41,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button x:Name="serviceFinish" Click="serviceFinish_Click" Content="Finalizar pedido" Padding="0,5" Margin="0,5" Background="#cc0000" Foreground="White" BorderBrush="#cc0000" FontWeight="Bold" FontSize="12.5">
+            <Button x:Name="serviceFinish" Click="serviceFinish_Click" Content="Finalizar pedido" Visibility="{Binding SelectedService, ElementName=tablesTab, Converter= {StaticResource BoolToVis}}"  Padding="0,5" Margin="0,5" Background="#cc0000" Foreground="White" BorderBrush="#cc0000" FontWeight="Bold" FontSize="12.5">
                 <Button.BitmapEffect>
                     <DropShadowBitmapEffect Color="Black" Direction="0" Softness="0.5" ShadowDepth="0" Opacity="0.4" />
                 </Button.BitmapEffect>
