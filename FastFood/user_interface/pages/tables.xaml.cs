@@ -348,5 +348,10 @@ namespace FastFood.user_interface.pages
             }
 
         }
+
+        private void productAdd_Click(object sender, RoutedEventArgs e)
+        {
+            new products_selection().ShowDialog();
+        }
     }   
 }

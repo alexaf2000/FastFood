@@ -116,6 +116,9 @@
     <Compile Include="user_interface\pages\tables.xaml.cs">
       <DependentUpon>tables.xaml</DependentUpon>
     </Compile>
+    <Compile Include="user_interface\products_selection.xaml.cs">
+      <DependentUpon>products_selection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="user_interface\settings.xaml.cs">
       <DependentUpon>settings.xaml</DependentUpon>
     </Compile>
@@ -151,6 +154,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="user_interface\pages\tables.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="user_interface\products_selection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

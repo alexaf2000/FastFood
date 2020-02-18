@@ -31,7 +31,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button  x:Name="productAdd" Content="Añadir producto" Visibility="{Binding SelectedService, ElementName=tablesTab, Converter= {StaticResource BoolToVis}}"  Padding="0,5" Margin="0,5" Background="#05aeff" Foreground="White" BorderBrush="#05aeff" FontWeight="Bold" FontSize="12.5">
+            <Button  x:Name="productAdd" Click="productAdd_Click"  Content="Añadir producto" Visibility="{Binding SelectedService, ElementName=tablesTab, Converter= {StaticResource BoolToVis}}"  Padding="0,5" Margin="0,5" Background="#05aeff" Foreground="White" BorderBrush="#05aeff" FontWeight="Bold" FontSize="12.5">
                 <Button.BitmapEffect>
                     <DropShadowBitmapEffect Color="Black" Direction="0" Softness="0.5" ShadowDepth="0" Opacity="0.4" />
                 </Button.BitmapEffect>
