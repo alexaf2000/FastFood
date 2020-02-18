@@ -29,6 +29,9 @@ namespace FastFood.user_interface
         public dashboard()
         {
             InitializeComponent();
+
+            // Set onload this table
+            contentContainer.Content = new user_interface.pages.tables();
         }
 
 
