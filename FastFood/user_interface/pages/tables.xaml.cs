@@ -277,7 +277,6 @@ namespace FastFood.user_interface.pages
                 con.Open();
                 query = "UPDATE `services` SET `end` = CURRENT_TIMESTAMP WHERE `services`.`id` = (SELECT actualServiceID FROM tables where id = ?selectedTableID)";
                 cmd = new MySqlCommand(query, con);
-
                 cmd.Parameters.AddWithValue("?selectedTableID", SelectedTable.ToString());
                 System.Data.IDataReader dr;
                 dr = cmd.ExecuteReader();
@@ -352,7 +351,8 @@ namespace FastFood.user_interface.pages
 
         private void productAdd_Click(object sender, RoutedEventArgs e)
         {
-            new products_selection().ShowDialog();
+            new products_selection(SelectedTable.ToString()).ShowDialog();
+            updateTables();
         }
     }   
 }

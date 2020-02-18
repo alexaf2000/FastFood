@@ -21,9 +21,14 @@ namespace FastFood.user_interface
     /// </summary>
     public partial class products_selection : Window
     {
-        public products_selection()
+
+        public String serviceID;
+
+        public products_selection(String serviceID)
         {
             InitializeComponent();
+
+            this.serviceID = serviceID;
 
             List<Products> items = new List<Products>();
 
@@ -55,22 +60,9 @@ namespace FastFood.user_interface
                     con.Close();
                 }
             }
-
-
-
-
-
-            //items.Add(new Products() { Name = "John Doe"});
-            //items.Add(new Products() { Name = "Jane Doe", Description = "sdfsdf", Image = byteArrayToImage(dr.GetSqlBytes(dr.GetOrdinal("img")).Buffer)});
-            //items.Add(new Products() { Name = "Sammy Doe" });
-            //ProductsListBox.ItemsSource = items;
-
         }
 
-        private Image byteArrayToImage(object buffer)
-        {
-            throw new NotImplementedException();
-        }
+
 
         public class Products
         {
@@ -79,6 +71,55 @@ namespace FastFood.user_interface
             public string Description { get; set; }
 
             public Image Image { get; set; }
+        }
+
+        private void ProductsListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (ProductsListBox.SelectedItem != null)
+            {
+
+                DataRowView selected = (DataRowView) ProductsListBox.SelectedItem;
+
+                String query;
+                MySqlCommand cmd;
+                MySqlConnection con = null;
+
+                //Añadir este id a la comanda
+                try {
+                ConfigurationHandler Config = new ConfigurationHandler();
+                String host = Config.getSetting("host", "Connection");
+                String port = Config.getSetting("port", "Connection");
+                String database = Config.getSetting("database", "Connection");
+                String user = Config.getSetting("username", "Connection");
+                String pass = Config.getSetting("password", "Connection");
+                String ruta = "Data Source=" + host + ";port=" + port + ";Database=" + database + ";Uid=" + user + ";Password=" + pass;
+                con = new MySqlConnection(ruta);
+                con.Open();
+                query = "INSERT INTO consumitions (serviceID, productID) values (?serviceID, ?productID);";
+                cmd = new MySqlCommand(query, con);
+                cmd.Parameters.AddWithValue("?productID", selected["id"]);
+                cmd.Parameters.AddWithValue("?serviceID", this.serviceID);
+                    System.Data.IDataReader dr;
+                dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                        MessageBox.Show("Error al añadir.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+                catch (Exception exc)
+            {
+                MessageBox.Show("Hubo un error al añadir el producto: \n" + exc.Message.ToString() + ".", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+
+            this.Close();
+            }
         }
     }
 }

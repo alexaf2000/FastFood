@@ -9,7 +9,7 @@
         Title="Añadir productos" Height="450" Width="{Binding SystemParameters.PrimaryScreenWidth}" ResizeMode="NoResize">
     <Grid>
         <TextBlock Text="Principales" FontWeight="Bold" FontSize="32" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="14,5"/>
-        <ListBox  VerticalAlignment="Top" BorderThickness="0" Margin="0,60" Name="ProductsListBox" >
+        <ListBox  VerticalAlignment="Top" BorderThickness="0" Margin="0,60" Name="ProductsListBox" MouseDoubleClick="ProductsListBox_MouseDoubleClick">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border Background="White" BorderBrush="DarkGray" BorderThickness="0.5" CornerRadius="2">
@@ -21,7 +21,7 @@
                             </Border.BitmapEffect>
                         </Border>
                         <Image Source="{Binding image}" Width="240" MaxHeight="180" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,30"></Image>
-                        <TextBlock VerticalAlignment="Bottom" TextWrapping="Wrap"  HorizontalAlignment="Left" FontWeight="SemiBold" FontSize="18" Margin="0,0,0,10" Text="{Binding name}"/>
+                        <TextBlock x:Name="Product_Name" VerticalAlignment="Bottom" TextWrapping="Wrap"  HorizontalAlignment="Left" FontWeight="SemiBold" FontSize="18" Margin="0,0,0,10" Text="{Binding name}"/>
                     </Grid>
                     </Border>
                 </DataTemplate>
