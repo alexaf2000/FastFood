@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace FastFood
+namespace FastFood.Converters
 {
     public class EqualsConverter : IMultiValueConverter
     {
