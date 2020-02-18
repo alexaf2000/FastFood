@@ -27,7 +27,8 @@ namespace FastFood.user_interface.pages
         public String SelectedTable
         {
             get { return (String)GetValue(SelectedTableProperty); }
-            set { 
+            set
+            {
                 SetValue(SelectedTableProperty, value);
                 NotifyPropertyChanged("Title");
             }
@@ -38,9 +39,11 @@ namespace FastFood.user_interface.pages
 
         public Boolean SelectedService
         {
-            get {
+            get
+            {
                 NotifyPropertyChanged("Title");
-                return (Boolean)GetValue(SelectedServiceProperty); }
+                return (Boolean)GetValue(SelectedServiceProperty);
+            }
             set
             {
                 SetValue(SelectedServiceProperty, value);
@@ -61,11 +64,9 @@ namespace FastFood.user_interface.pages
         public tables()
         {
             InitializeComponent();
-            //var numberButtons = Enumerable.Range(1, 30).Select(r => new KeyValuePair<string, bool>(r.ToString(), false)).ToList();
-            //numberButtonItems.ItemsSource = numberButtons;
-            updateTables();
 
-           
+            updateTables();
+            
         }
 
         private void updateTables()
@@ -101,14 +102,14 @@ namespace FastFood.user_interface.pages
         }
         private void table_button_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var TableButton = (table_button) e.Source;
+            var TableButton = (table_button)e.Source;
 
             var TableNumber = TableButton.GetValue(table_button.TableNumberProperty);
             SelectedTable = TableNumber.ToString();
 
             var Service = TableButton.GetValue(table_button.ServiceProperty);
             SelectedService = Boolean.Parse(Service.ToString());
-            
+
         }
 
         private void serviceStart_Click(object sender, RoutedEventArgs e)
@@ -140,7 +141,7 @@ namespace FastFood.user_interface.pages
                 dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
-                    if(!dr.IsDBNull(0))
+                    if (!dr.IsDBNull(0))
                     {
                         alreadyWorking = true;
                     }
@@ -161,49 +162,9 @@ namespace FastFood.user_interface.pages
             }
             Console.WriteLine(alreadyWorking.ToString());
 
-            if (alreadyWorking == false) {
-            //Crear servicio
-            try
+            if (alreadyWorking == false)
             {
-                
-                ConfigurationHandler Config = new ConfigurationHandler();
-                String host = Config.getSetting("host", "Connection");
-                String port = Config.getSetting("port", "Connection");
-                String database = Config.getSetting("database", "Connection");
-                String user = Config.getSetting("username", "Connection");
-                String pass = Config.getSetting("password", "Connection");
-                String ruta = "Data Source=" + host + ";port=" + port + ";Database=" + database + ";Uid=" + user + ";Password=" + pass;
-                con = new MySqlConnection(ruta);
-                con.Open();
-                query = "INSERT INTO services (start) values (CURRENT_TIMESTAMP); SELECT id FROM `services` WHERE `start`= CURRENT_TIMESTAMP;";
-                cmd = new MySqlCommand(query, con);
-
-                System.Data.IDataReader dr;
-                dr = cmd.ExecuteReader();
-                if (dr.Read())
-                {
-                    serviceID = Int32.Parse(dr.GetString(0));
-                }
-                else
-                {
-                    MessageBox.Show("Error al crear el servicio.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            catch (Exception exc)
-            {
-                MessageBox.Show("Hubo un error al añadir el usuario: \n" + exc.Message.ToString() + ".", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            finally
-            {
-                if (con != null)
-                {
-                    con.Close();
-                }
-            }
-
-            //Asignar a mesa actual
-            if(serviceID != -1)
-            {
+                //Crear servicio
                 try
                 {
 
@@ -216,21 +177,18 @@ namespace FastFood.user_interface.pages
                     String ruta = "Data Source=" + host + ";port=" + port + ";Database=" + database + ";Uid=" + user + ";Password=" + pass;
                     con = new MySqlConnection(ruta);
                     con.Open();
-                    query = "UPDATE `tables` SET `actualServiceID` = ?serviceID WHERE `tables`.`id` = ?selectedTableID;";
+                    query = "INSERT INTO services (start) values (CURRENT_TIMESTAMP); SELECT id FROM `services` WHERE `start`= CURRENT_TIMESTAMP;";
                     cmd = new MySqlCommand(query, con);
-                    cmd.Parameters.AddWithValue("?serviceID", serviceID);
-                    cmd.Parameters.AddWithValue("?selectedTableID", SelectedTable.ToString());
+
                     System.Data.IDataReader dr;
                     dr = cmd.ExecuteReader();
                     if (dr.Read())
                     {
-                        MessageBox.Show("Error al asignar el servicio a esta mesa.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        serviceID = Int32.Parse(dr.GetString(0));
                     }
                     else
                     {
-                        //TODO OK
-                        //Recargar la vista
-                        updateTables();
+                        MessageBox.Show("Error al crear el servicio.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 catch (Exception exc)
@@ -244,7 +202,52 @@ namespace FastFood.user_interface.pages
                         con.Close();
                     }
                 }
-            }
+
+                //Asignar a mesa actual
+                if (serviceID != -1)
+                {
+                    try
+                    {
+
+                        ConfigurationHandler Config = new ConfigurationHandler();
+                        String host = Config.getSetting("host", "Connection");
+                        String port = Config.getSetting("port", "Connection");
+                        String database = Config.getSetting("database", "Connection");
+                        String user = Config.getSetting("username", "Connection");
+                        String pass = Config.getSetting("password", "Connection");
+                        String ruta = "Data Source=" + host + ";port=" + port + ";Database=" + database + ";Uid=" + user + ";Password=" + pass;
+                        con = new MySqlConnection(ruta);
+                        con.Open();
+                        query = "UPDATE `tables` SET `actualServiceID` = ?serviceID WHERE `tables`.`id` = ?selectedTableID;";
+                        cmd = new MySqlCommand(query, con);
+                        cmd.Parameters.AddWithValue("?serviceID", serviceID);
+                        cmd.Parameters.AddWithValue("?selectedTableID", SelectedTable.ToString());
+                        System.Data.IDataReader dr;
+                        dr = cmd.ExecuteReader();
+                        if (dr.Read())
+                        {
+                            MessageBox.Show("Error al asignar el servicio a esta mesa.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        else
+                        {
+                            //TODO OK
+                            //Recargar la vista
+                            SelectedService = true;
+                            updateTables();
+                        }
+                    }
+                    catch (Exception exc)
+                    {
+                        MessageBox.Show("Hubo un error al añadir el usuario: \n" + exc.Message.ToString() + ".", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    finally
+                    {
+                        if (con != null)
+                        {
+                            con.Close();
+                        }
+                    }
+                }
             }
 
         }
@@ -327,6 +330,7 @@ namespace FastFood.user_interface.pages
                     {
                         //TODO OK
                         //Recargar la vista
+                        SelectedService = false;
                         updateTables();
                     }
                 }
@@ -342,6 +346,7 @@ namespace FastFood.user_interface.pages
                     }
                 }
             }
+
         }
-    }
+    }   
 }
