@@ -275,9 +275,10 @@ namespace FastFood.user_interface.pages
                 String ruta = "Data Source=" + host + ";port=" + port + ";Database=" + database + ";Uid=" + user + ";Password=" + pass;
                 con = new MySqlConnection(ruta);
                 con.Open();
-                query = "UPDATE `services` SET `end` = CURRENT_TIMESTAMP WHERE `services`.`id` = (SELECT actualServiceID FROM tables where id = 1)";
+                query = "UPDATE `services` SET `end` = CURRENT_TIMESTAMP WHERE `services`.`id` = (SELECT actualServiceID FROM tables where id = ?selectedTableID)";
                 cmd = new MySqlCommand(query, con);
 
+                cmd.Parameters.AddWithValue("?selectedTableID", SelectedTable.ToString());
                 System.Data.IDataReader dr;
                 dr = cmd.ExecuteReader();
                 if (dr.Read())
