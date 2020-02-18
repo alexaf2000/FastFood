@@ -104,6 +104,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters\EqualsConverter.cs" />
     <Compile Include="Converters\NegateBooleanConverter.cs" />
+    <Compile Include="Models\product.cs" />
     <Compile Include="user_interface\components\table_button.xaml.cs">
       <DependentUpon>table_button.xaml</DependentUpon>
     </Compile>
