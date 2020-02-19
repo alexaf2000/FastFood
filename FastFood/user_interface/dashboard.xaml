@@ -28,12 +28,12 @@
                             <Label Content="Mesas" Foreground="White" FontWeight="DemiBold" FontSize="13" Margin="15,0,0,0"/>
                         </DockPanel>
                     </Button>
-                    <Button Height="60" Background="Transparent" x:Name="btnMenu" BorderThickness="0">
+                    <!--<Button Height="60" Background="Transparent" x:Name="btnMenu" BorderThickness="0">
                         <DockPanel  Margin="20,0,0,0">
                             <Image Source="/Resources/icons/menu.ico" Width="20" />
                             <Label Content="Gestionar carta" Foreground="White" FontWeight="DemiBold" FontSize="13" Margin="15,0,0,0"/>
                         </DockPanel>
-                    </Button>
+                    </Button>-->
 
                 </StackPanel>
                 <StackPanel VerticalAlignment="Bottom">
