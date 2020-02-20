@@ -8,12 +8,12 @@
         Title="Configuración" Height="450" Width="800" MinHeight="450" MinWidth="550" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
         <TabControl x:Name="SettingsTabControl" TabStripPlacement="Top" SelectionChanged="TabControl_SelectionChanged">
-            <TabItem Header="General">
+            <!--"<TabItem Header="General">
                 <Grid>
                     <TextBlock FontWeight="Bold" Text="Nombre de restaurante" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
                     <TextBox  x:Name="restaurant" Margin="10,31,0,0" HorizontalAlignment="Left" Width="120" Height="24" VerticalAlignment="Top"/>
                 </Grid>
-            </TabItem>
+            </TabItem>-->
             <TabItem Header="Usuarios" Name="users" >
                 <Grid>
                     <Grid.ColumnDefinitions>
