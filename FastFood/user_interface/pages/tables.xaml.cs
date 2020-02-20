@@ -53,6 +53,21 @@ namespace FastFood.user_interface.pages
         public static DependencyProperty SelectedServiceProperty =
            DependencyProperty.Register("SelectedService", typeof(Boolean), typeof(tables));
 
+        public String SelectedServiceTotal
+        {
+            get
+            {
+                NotifyPropertyChanged("SelectedServiceTotal");
+                return (String)GetValue(SelectedServiceTotalProperty);
+            }
+            set
+            {
+                SetValue(SelectedServiceTotalProperty, value);
+            }
+        }
+
+        public static DependencyProperty SelectedServiceTotalProperty =
+           DependencyProperty.Register("SelectedServiceTotal", typeof(String), typeof(tables));
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void NotifyPropertyChanged(string info)
@@ -60,6 +75,8 @@ namespace FastFood.user_interface.pages
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
         }
+
+
 
         public tables()
         {
@@ -72,6 +89,8 @@ namespace FastFood.user_interface.pages
         private void updateTables()
         {
             MySqlConnection con = null;
+
+            //Update Tables
             try
             {
                 String query = "SELECT * FROM `tables`";
@@ -100,6 +119,42 @@ namespace FastFood.user_interface.pages
                 }
             }
         }
+
+        private void updateProductsList()
+        {
+            if (SelectedTable != null)
+            {
+                MySqlConnection con = null;
+                try
+                {
+                    String query = "SELECT products.name, products.description, products.image, COUNT(products.id) as quantity, sum(products.price) as price from consumitions inner join products on consumitions.productID = products.id where consumitions.serviceID = (SELECT actualServiceID FROM tables WHERE id = " + SelectedTable + ") GROUP BY products.id";
+                    ConfigurationHandler Config = new ConfigurationHandler();
+                    String host = Config.getSetting("host", "Connection");
+                    String port = Config.getSetting("port", "Connection");
+                    String database = Config.getSetting("database", "Connection");
+                    String user = Config.getSetting("username", "Connection");
+                    String pass = Config.getSetting("password", "Connection");
+                    String ruta = "Data Source=" + host + ";port=" + port + ";Database=" + database + ";Uid=" + user + ";Password=" + pass;
+                    con = new MySqlConnection(ruta);
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, con);
+                    DataSet ds = new DataSet();
+                    adapter.Fill(ds, "productsDataBinding");
+                    productsList.DataContext = ds;
+                    SelectedServiceTotal = ds.Tables[0].Compute("SUM(price)", String.Empty).ToString();
+                }
+                catch (Exception exc)
+                {
+                    Console.WriteLine(exc.Message.ToString());
+                }
+                finally
+                {
+                    if (con != null)
+                    {
+                        con.Close();
+                    }
+                }
+            }
+        }
         private void table_button_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var TableButton = (table_button)e.Source;
@@ -109,6 +164,8 @@ namespace FastFood.user_interface.pages
 
             var Service = TableButton.GetValue(table_button.ServiceProperty);
             SelectedService = Boolean.Parse(Service.ToString());
+
+            updateProductsList();
 
         }
 
@@ -346,6 +403,7 @@ namespace FastFood.user_interface.pages
                     }
                 }
             }
+            updateProductsList();
 
         }
 
@@ -353,6 +411,7 @@ namespace FastFood.user_interface.pages
         {
             new products_selection(SelectedTable.ToString()).ShowDialog();
             updateTables();
+            updateProductsList();
         }
     }   
 }

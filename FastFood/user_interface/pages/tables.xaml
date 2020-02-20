@@ -14,13 +14,31 @@
     </UserControl.Resources>
     <Grid Background="White">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" MaxWidth="250"/>
+            <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel VerticalAlignment="Bottom" Margin="15,75" Background="White" Grid.Column="0" Height="500">
-            <TextBlock FontSize="16" FontWeight="SemiBold">Total:</TextBlock>
-            <TextBlock Text="{Binding SelectedTable, ElementName=tablesTab}"/>
-            <TextBlock FontSize="24" FontWeight="Bold">129,99€</TextBlock>
+        <StackPanel VerticalAlignment="Top" Margin="15,15" Background="White" Grid.Column="0">
+            <ListBox x:Name="productsList" Height="600"  ItemsSource="{Binding Path=productsDataBinding}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Width="200">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"/>
+                                    <ColumnDefinition Width="80*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Source="{Binding image}" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
+                                <TextBlock Grid.Column="1" x:Name="Product_Name" VerticalAlignment="Bottom" TextWrapping="Wrap"  HorizontalAlignment="Left" FontWeight="SemiBold" FontSize="14" Text="{Binding name}"/>
+                                
+                            </Grid>
+                            <TextBlock Grid.Column="1" VerticalAlignment="Bottom" TextWrapping="Wrap"  HorizontalAlignment="Left"  FontSize="12">Cantidad:
+                                    <TextBlock Text="{Binding quantity}"/> Precio: <TextBlock Text="{Binding price}"/> </TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <TextBlock FontSize="16" FontWeight="SemiBold" Margin="0,5,0,0"  Visibility="{Binding SelectedService, ElementName=tablesTab,Converter= {StaticResource BoolToVis}}">Total:</TextBlock>
+            <TextBlock FontSize="24" FontWeight="Bold" Visibility="{Binding SelectedService, ElementName=tablesTab,Converter= {StaticResource BoolToVis}}"><TextBlock Text="{Binding SelectedServiceTotal, ElementName=tablesTab}"/>€</TextBlock>
             <Button x:Name="serviceStart" Click="serviceStart_Click" Content="Iniciar pedido" IsEnabled="{Binding SelectedService, ElementName=tablesTab, Converter= {StaticResource inverter}}" Padding="0,5" Margin="0,5" Background="#66c433" Foreground="White" BorderBrush="#66c433" FontWeight="Bold" FontSize="12.5">
                 <Button.BitmapEffect>
                     <DropShadowBitmapEffect Color="Black" Direction="0" Softness="0.5" ShadowDepth="0" Opacity="0.4" />
