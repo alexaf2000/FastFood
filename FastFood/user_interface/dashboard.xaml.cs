@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
 using System.Text;
@@ -19,12 +21,34 @@ namespace FastFood.user_interface
     /// <summary>
     /// Lógica de interacción para dashboard.xaml
     /// </summary>
-    public partial class dashboard : Window
+    public partial class dashboard : Window , INotifyPropertyChanged
     {
 
         private bool Expanded = false;
         private bool ForceClose = false;
 
+        public String userName
+        {
+            get
+            {                
+                return (String)GetValue(userNameProperty);
+            }
+            set
+            {
+                SetValue(userNameProperty, value);
+                NotifyPropertyChanged("userName");
+            }
+        }
+
+        public static DependencyProperty userNameProperty =
+           DependencyProperty.Register("userNameProperty", typeof(String), typeof(dashboard));
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void NotifyPropertyChanged(string info)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+        }
 
         public dashboard()
         {
@@ -32,6 +56,48 @@ namespace FastFood.user_interface
 
             // Set onload this table
             contentContainer.Content = new user_interface.pages.tables();
+
+
+            ConfigurationHandler Config = new ConfigurationHandler();
+            String host = Config.getSetting("host", "Connection");
+            String port = Config.getSetting("port", "Connection");
+            String database = Config.getSetting("database", "Connection");
+            String user = Config.getSetting("username", "Connection");
+            String pass = Config.getSetting("password", "Connection");
+            String ruta = "Data Source=" + host + ";port=" + port + ";Database=" + database + ";Uid=" + user + ";Password=" + pass;
+            String query = "SELECT name from users where username= ?username;";
+            MySqlCommand cmd;
+            MySqlConnection con = null;
+
+            try
+            {
+                con = new MySqlConnection(ruta);
+                con.Open();
+                cmd = new MySqlCommand(query, con);
+                cmd.Parameters.AddWithValue("?username", ConfigurationManager.AppSettings["username"]);
+                System.Data.IDataReader dr;
+                dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    this.userName = dr.GetString(0);
+                }
+                else
+                {
+                    this.userName = "usuario";
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Ups! Ha habido un error de conexión con la base de datos:\n" + exc.Message.ToString(), "Error de conexión", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
         }
 
 
