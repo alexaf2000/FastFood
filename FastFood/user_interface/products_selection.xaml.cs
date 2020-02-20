@@ -22,13 +22,13 @@ namespace FastFood.user_interface
     public partial class products_selection : Window
     {
 
-        public String serviceID;
+        public String selectedTable;
 
-        public products_selection(String serviceID)
+        public products_selection(String selectedTable)
         {
             InitializeComponent();
 
-            this.serviceID = serviceID;
+            this.selectedTable = selectedTable;
 
             List<Products> items = new List<Products>();
 
@@ -95,10 +95,10 @@ namespace FastFood.user_interface
                 String ruta = "Data Source=" + host + ";port=" + port + ";Database=" + database + ";Uid=" + user + ";Password=" + pass;
                 con = new MySqlConnection(ruta);
                 con.Open();
-                query = "INSERT INTO consumitions (serviceID, productID) values (?serviceID, ?productID);";
+                query = "insert into consumitions (serviceID, productID) VALUES ( (SELECT actualServiceID FROM tables WHERE id = ?selectedTable) , ?productID )";
                 cmd = new MySqlCommand(query, con);
                 cmd.Parameters.AddWithValue("?productID", selected["id"]);
-                cmd.Parameters.AddWithValue("?serviceID", this.serviceID);
+                cmd.Parameters.AddWithValue("?selectedTable", this.selectedTable);
                     System.Data.IDataReader dr;
                 dr = cmd.ExecuteReader();
                 if (dr.Read())
