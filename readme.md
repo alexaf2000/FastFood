@@ -25,6 +25,7 @@ One of those things that FastFood can do is manage the tables that are inside yo
 
 ## Screenshots
 
+* Video: (https://www.youtube.com/watch?v=qbZQlhFVBPk)
 <img src="https://i.imgur.com/wlOmgv6.png" width="256">
 <img src="https://i.imgur.com/UubUMAV.png" width="600">
 <img src="https://i.imgur.com/WhVCGW1.png" width="600">
